@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerApi } from "../api/auth";
 const Container = styled.div`
@@ -10,7 +10,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://images.pexels.com/photos/459653/pexels-photo-459653.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")
       center;
   background-size: cover;
   display: flex;
@@ -54,7 +54,9 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-
+const Login = styled.button`
+  margin-top: 10px;
+`;
 const Register = () => {
   const username = useRef();
   const email = useRef();
@@ -91,18 +93,24 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>Tạo tài khoản</Title>
         <Form onSubmit={handleClick}>
           <Input ref={username} placeholder="username" />
           <Input ref={email} placeholder="email" />
           <Input ref={password} placeholder="password" />
           <Input ref={passwordAgain} placeholder="confirm password" />
           <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
+            Chỉ cần bỏ ra 3 phút tạo tài khoản thì quý khách có thể mua hàng của
+            shop chúng tôi
           </Agreement>
-          <Button>CREATE</Button>
+          <Button>Đăng ký</Button>
         </Form>
+        <Login>
+          Nếu đã có tài khoản. Vui lòng{" "}
+          <Link className="text-blue-500" to={`/login`}>
+            đăng nhập
+          </Link>
+        </Login>
       </Wrapper>
     </Container>
   );
