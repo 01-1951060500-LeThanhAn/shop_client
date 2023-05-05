@@ -42,6 +42,7 @@ const Price = styled.span`
 
 const Filter = styled.div`
   display: flex;
+
   align-items: center;
 `;
 
@@ -78,12 +79,12 @@ const AmountContainer = styled.div`
 const Amount = styled.span`
   width: 30px;
   height: 30px;
-  border-radius: 10px;
+
   border: 1px solid teal;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px 5px;
+  margin: 1px 0;
 `;
 
 const Button = styled.button`
@@ -96,7 +97,21 @@ const Button = styled.button`
 `;
 
 const ColorItem = styled.div`
-  margin: 0 12px;
+  margin: 0 6px;
+`;
+
+const AddItem = styled.div`
+  border: 1px solid black;
+  padding: 1px 0;
+  border-right: none;
+  cursor: pointer;
+`;
+
+const RemoveItem = styled.div`
+  border: 1px solid black;
+  padding: 1px 0;
+  border-left: none;
+  cursor: pointer;
 `;
 
 const Product = () => {
@@ -162,15 +177,17 @@ const Product = () => {
           <Desc>{product?.desc}</Desc>
           <Price>$ {product.price}</Price>
 
-          <div className="flex justify-between 2xl:w-4/5 w-full my-[30px] mx-auto">
+          <div className="flex justify-between 2xl:w-4/5 w-full my-[30px]">
             <Filter>
               <FilterTitle>Màu sắc: </FilterTitle>
               {product.color?.map((c) => (
-                <FilterColor className="text-xl mx-1" key={c}>
+                <FilterColor className="text-xl" key={c}>
                   <ColorItem
                     onClick={() => setColor(c)}
                     className={
-                      color === c ? "bg-red-600 text-white px-2 py-1" : ""
+                      color === c
+                        ? "bg-black text-white px-2 py-1"
+                        : "border border-black px-2 py-1 text-black"
                     }
                   >
                     {c}
@@ -179,7 +196,7 @@ const Product = () => {
               ))}
             </Filter>
             <Filter>
-              <FilterTitle>Kích cỡ</FilterTitle>
+              <FilterTitle>Kích cỡ:</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
                 {product.size?.map((s) => (
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
@@ -189,9 +206,14 @@ const Product = () => {
           </div>
           <AddContainer>
             <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} />
+              <AddItem>
+                <Remove onClick={() => handleQuantity("dec")} />
+              </AddItem>
               <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")} />
+              <RemoveItem>
+                {" "}
+                <Add onClick={() => handleQuantity("inc")} />
+              </RemoveItem>
             </AmountContainer>
             <Button onClick={handleClick}>Thêm sản phẩm vào giỏ hàng</Button>
           </AddContainer>
